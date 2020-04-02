@@ -60,7 +60,6 @@ class Graph:
         for i in range(0, nr_of_iterations):
             new_graph = deepcopy(self)
             new_contraction = new_graph.get_random_contraction()
-            print(str(new_contraction.get_numbers_of_vertices_a()) + "  " + str(new_contraction.get_nr_of_edges()))
             if not min_contraction or new_contraction.get_nr_of_edges() < min_contraction.get_nr_of_edges():
                 min_contraction = new_contraction
         return min_contraction
