@@ -26,26 +26,28 @@ class Graph:
     def get_nr_of_vertices(self):
         return self.number_of_vertices
 
-    def get_are_vertices_adjacent(self, a, b):
+    def get_are_vertices_adjacent(self, vertice_a, vertice_b):
         for edge in self.edges:
-            if edge.vertice_a == a or edge.vertice_a == b:
-                if edge.vertice_b == a or edge.vertice_b == b:
+            if edge.get_vertice_a() == vertice_a or edge.get_vertice_a() == vertice_b:
+                if edge.get_vertice_b() == vertice_a or edge.get_vertice_b() == vertice_b:
                     return True
         return False
 
-    def merge_nodes(self, a, b):
+    def merge_nodes(self, vertice_a, vertice_b):
         for edge in self.edges:
-            edge.swap_vertice(b, a)
-        a.add_merged_vertices(b)
+            edge.swap_vertice(vertice_b, vertice_a)
+        vertice_a.add_merged_vertice(vertice_b)
+        self.number_of_vertices = self.number_of_vertices - 1
 
 
     def get_random_contraction(self):
-        if self.get_nr_of_vertices() > 2:
+        while self.get_nr_of_vertices() > 2:
             edge_to_contract = choice(self.edges)
-            self.merge_nodes(edge_to_contract.vertice_a, edge_to_contract.vertice_b)
+            self.merge_nodes(edge_to_contract.get_vertice_a(), edge_to_contract.get_vertice_b())
             for edge in self.edges:
                 if edge.get_is_self_loop():
                     self.edges.remove(edge)
+        graph_cut = GraphCut()
         # return cut
 
     def get_vertice(self, nr_of_vertice):

@@ -8,3 +8,9 @@ class GraphCut:
     def get_nr_of_edges(self):
         return len(self.edges)
 
+    def get_vertices_a(self):
+        return self.vertices_a
+
+    def get_vertices_b(self):
+        return self.vertices_b
+

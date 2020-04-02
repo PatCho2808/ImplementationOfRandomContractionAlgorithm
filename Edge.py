@@ -16,3 +16,8 @@ class Edge:
     def get_is_self_loop(self):
         return self.vertice_a == self.vertice_b
 
+    def get_vertice_a(self):
+        return self.vertice_a
+
+    def get_vertice_b(self):
+        return self.vertice_b

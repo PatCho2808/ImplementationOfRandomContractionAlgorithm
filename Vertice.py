@@ -29,7 +29,7 @@ class Vertice:
     def get_nr(self):
         return self.nr
 
-    def add_merged_vertices(self, merged_vertice):
+    def add_merged_vertice(self, merged_vertice):
         self.merges_vertices.append(merged_vertice)
 
     def get_merged_vertices(self):

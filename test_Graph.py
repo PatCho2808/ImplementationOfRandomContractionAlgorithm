@@ -1,9 +1,10 @@
 from unittest import TestCase
 from Graph import *
+from GraphCut import *
 
 
 class TestGraph(TestCase):
-    def test_graph(self):
+    def test_creating_graph(self):
         graph = Graph([[1, 5, 7],
                        [2, 3, 5],
                        [3, 2, 4, 5],
@@ -69,3 +70,35 @@ class TestGraph(TestCase):
         self.assertFalse(graph.get_are_vertices_adjacent(graph.get_vertice(2), graph.get_vertice(3)))
 
         self.assertTrue(graph.get_are_vertices_adjacent(graph.get_vertice(1), graph.get_vertice(3)))
+
+    def test_random_contraction(self):
+        graph = Graph([[1, 2, 3],
+                       [2, 1, 3],
+                       [3, 1, 2, 4],
+                       [4, 3]])
+        graph_cut = graph.get_random_contraction()
+
+        self.assertTrue(graph_cut.get_nr_of_edges() > 0)
+
+        self.assertEqual([1, 2, 3, 4], (graph_cut.get_vertices_a() + graph_cut.get_vertices_b()).sort())
+
+        graph = Graph([[1, 2],
+                       [2, 1, 3],
+                       [3, 2]])
+
+        graph_cut = graph.get_random_contraction()
+
+        self.assertTrue(graph_cut.get_nr_of_edges() > 0)
+
+        self.assertEqual([1, 2, 3, 4], (graph_cut.get_vertices_a() + graph_cut.get_vertices_b()).sort())
+
+        graph = Graph([[1, 2],
+                       [2, 1, 3, 4],
+                       [3, 2, 4],
+                       [4, 3, 2]])
+
+        graph_cut = graph.get_random_contraction()
+
+        self.assertTrue(graph_cut.get_nr_of_edges() > 0)
+
+        self.assertEqual([1, 2, 3, 4], (graph_cut.get_vertices_a() + graph_cut.get_vertices_b()).sort())
