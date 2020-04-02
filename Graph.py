@@ -40,16 +40,17 @@ class Graph:
         self.number_of_vertices = self.number_of_vertices - 1
         self.vertices.remove(vertice_b)
 
-
     def get_random_contraction(self):
         while self.get_nr_of_vertices() > 2:
             edge_to_contract = choice(self.edges)
             self.merge_nodes(edge_to_contract.get_vertice_a(), edge_to_contract.get_vertice_b())
-            for edge in self.edges:
+            for edge in self.edges[:]:
                 if edge.get_is_self_loop():
                     self.edges.remove(edge)
-        graph_cut = GraphCut()
-        # return cut
+        graph_cut = GraphCut(self.vertices[0].get_merged_vertices(),
+                             self.vertices[1].get_merged_vertices(),
+                             self.edges)
+        return graph_cut
 
     def get_vertice(self, nr_of_vertice):
         for vertice in self.vertices:

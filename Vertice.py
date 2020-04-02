@@ -6,7 +6,7 @@ class Vertice:
     def __init__(self, nr, edges):
         self.nr = nr
         self.edges = edges
-        self.merges_vertices = []
+        self.merged_vertices = [self]
 
     def create_edge(self, adjacent_vertice):
         if not self.get_is_adjacent(adjacent_vertice):
@@ -30,7 +30,10 @@ class Vertice:
         return self.nr
 
     def add_merged_vertice(self, merged_vertice):
-        self.merges_vertices.append(merged_vertice)
+        self.merged_vertices.append(merged_vertice)
+        for vertice in merged_vertice.get_merged_vertices():
+            if vertice not in self.merged_vertices:
+                self.merged_vertices.append(vertice)
 
     def get_merged_vertices(self):
-        return self.merges_vertices
+        return self.merged_vertices

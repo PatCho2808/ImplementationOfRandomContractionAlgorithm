@@ -78,7 +78,10 @@ class TestGraph(TestCase):
 
         self.assertTrue(graph_cut.get_nr_of_edges() > 0)
 
-        self.assertEqual([1, 2, 3, 4], (graph_cut.get_vertices_a() + graph_cut.get_vertices_b()).sort())
+        vertices = graph_cut.get_number_of_vertices_a() + graph_cut.get_number_of_vertices_b()
+        vertices.sort()
+
+        self.assertEqual([1, 2, 3, 4], vertices)
 
         graph = Graph([[1, 2],
                        [2, 1, 3],
@@ -88,15 +91,22 @@ class TestGraph(TestCase):
 
         self.assertTrue(graph_cut.get_nr_of_edges() > 0)
 
-        self.assertEqual([1, 2, 3, 4], (graph_cut.get_vertices_a() + graph_cut.get_vertices_b()).sort())
+        vertices = graph_cut.get_number_of_vertices_a() + graph_cut.get_number_of_vertices_b()
+        vertices.sort()
 
-        graph = Graph([[1, 2],
+        self.assertEqual([1, 2, 3], vertices)
+
+        graph = Graph([[1, 2, 5],
                        [2, 1, 3, 4],
                        [3, 2, 4],
-                       [4, 3, 2]])
+                       [4, 3, 2],
+                       [5, 1]])
 
         graph_cut = graph.get_random_contraction()
 
         self.assertTrue(graph_cut.get_nr_of_edges() > 0)
 
-        self.assertEqual([1, 2, 3, 4], (graph_cut.get_vertices_a() + graph_cut.get_vertices_b()).sort())
+        vertices = graph_cut.get_number_of_vertices_a() + graph_cut.get_number_of_vertices_b()
+        vertices.sort()
+
+        self.assertEqual([1, 2, 3, 4, 5], vertices)
