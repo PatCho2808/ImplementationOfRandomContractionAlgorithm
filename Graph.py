@@ -38,6 +38,7 @@ class Graph:
             edge.swap_vertice(vertice_b, vertice_a)
         vertice_a.add_merged_vertice(vertice_b)
         self.number_of_vertices = self.number_of_vertices - 1
+        self.vertices.remove(vertice_b)
 
 
     def get_random_contraction(self):
@@ -51,7 +52,10 @@ class Graph:
         # return cut
 
     def get_vertice(self, nr_of_vertice):
-        return self.vertices[nr_of_vertice - 1]
+        for vertice in self.vertices:
+            if vertice.get_nr() == nr_of_vertice:
+                return vertice
+        return None
 
 
 

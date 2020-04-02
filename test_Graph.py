@@ -44,8 +44,7 @@ class TestGraph(TestCase):
 
         graph.merge_nodes(graph.get_vertice(1), graph.get_vertice(2))
 
-        self.assertFalse(graph.get_are_vertices_adjacent(graph.get_vertice(2), graph.get_vertice(5)))
-        self.assertFalse(graph.get_are_vertices_adjacent(graph.get_vertice(2), graph.get_vertice(4)))
+        self.assertEqual(None, graph.get_vertice(2))
 
         self.assertTrue(graph.get_are_vertices_adjacent(graph.get_vertice(1), graph.get_vertice(1)))
         self.assertTrue(graph.get_are_vertices_adjacent(graph.get_vertice(1), graph.get_vertice(4)))
@@ -66,8 +65,7 @@ class TestGraph(TestCase):
 
         graph.merge_nodes(graph.get_vertice(1), graph.get_vertice(2))
 
-        self.assertFalse(graph.get_are_vertices_adjacent(graph.get_vertice(2), graph.get_vertice(5)))
-        self.assertFalse(graph.get_are_vertices_adjacent(graph.get_vertice(2), graph.get_vertice(3)))
+        self.assertEqual(None, graph.get_vertice(2))
 
         self.assertTrue(graph.get_are_vertices_adjacent(graph.get_vertice(1), graph.get_vertice(3)))
 
