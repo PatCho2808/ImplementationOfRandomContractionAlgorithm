@@ -28,27 +28,25 @@ class Graph:
 
     def get_are_vertices_adjacent(self, a, b):
         for edge in self.edges:
-            if edge.vertice_a == self.vertices[a-1] or edge.vertice_a == self.vertices[b-1]:
-                if edge.vertice_b == self.vertices[a-1] or edge.vertice_b == self.vertices[b-1]:
+            if edge.vertice_a == a or edge.vertice_a == b:
+                if edge.vertice_b == a or edge.vertice_b == b:
                     return True
         return False
 
     def merge_nodes(self, a, b):
         for edge in self.edges:
-            edge.swap_vertice(self.vertices[b-1], self.vertices[a-1])
-        self.vertices[a-1].add_merged_vertices(self.vertices[b-1])
+            edge.swap_vertice(b, a)
+        a.add_merged_vertices(b)
 
 
     def get_random_contraction(self):
-        graph_cut = GraphCut([], [], [])
         if self.get_nr_of_vertices() > 2:
             edge_to_contract = choice(self.edges)
-            self.merge_nodes(edge_to_contract.vertice_a.get_nr(), edge_to_contract.vertice_b.get_nr())
+            self.merge_nodes(edge_to_contract.vertice_a, edge_to_contract.vertice_b)
             for edge in self.edges:
                 if edge.get_is_self_loop():
                     self.edges.remove(edge)
-
-    # return cut
+        # return cut
 
     def get_vertice(self, nr_of_vertice):
         return self.vertices[nr_of_vertice - 1]
