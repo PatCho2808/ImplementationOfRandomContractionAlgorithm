@@ -78,7 +78,7 @@ class TestGraph(TestCase):
 
         self.assertTrue(graph_cut.get_nr_of_edges() > 0)
 
-        vertices = graph_cut.get_number_of_vertices_a() + graph_cut.get_number_of_vertices_b()
+        vertices = graph_cut.get_numbers_of_vertices_a() + graph_cut.get_numbers_of_vertices_b()
         vertices.sort()
 
         self.assertEqual([1, 2, 3, 4], vertices)
@@ -91,7 +91,7 @@ class TestGraph(TestCase):
 
         self.assertTrue(graph_cut.get_nr_of_edges() > 0)
 
-        vertices = graph_cut.get_number_of_vertices_a() + graph_cut.get_number_of_vertices_b()
+        vertices = graph_cut.get_numbers_of_vertices_a() + graph_cut.get_numbers_of_vertices_b()
         vertices.sort()
 
         self.assertEqual([1, 2, 3], vertices)
@@ -106,7 +106,39 @@ class TestGraph(TestCase):
 
         self.assertTrue(graph_cut.get_nr_of_edges() > 0)
 
-        vertices = graph_cut.get_number_of_vertices_a() + graph_cut.get_number_of_vertices_b()
+        vertices = graph_cut.get_numbers_of_vertices_a() + graph_cut.get_numbers_of_vertices_b()
         vertices.sort()
 
         self.assertEqual([1, 2, 3, 4, 5], vertices)
+
+
+class TestMinContraction(TestCase):
+    def test_get_smallest_contraction(self):
+        graph = Graph([[1, 2, 5, 4],
+                       [2, 1, 3, 4],
+                       [3, 2, 4],
+                       [4, 3, 2, 1],
+                       [5, 1]])
+
+        graph_cut = graph.get_min_contraction()
+
+        self.assertEqual(1, graph_cut.get_nr_of_edges())
+
+        vertices_a = graph_cut.get_numbers_of_vertices_a()
+        vertices_b = graph_cut.get_numbers_of_vertices_b()
+        self.assertTrue([5] == vertices_a or [5] == vertices_b)
+
+        graph = Graph([[1, 2, 6],
+                       [2, 2, 6, 3],
+                       [3, 2, 6, 4],
+                       [4, 3, 6, 5],
+                       [5, 4, 6],
+                       [6, 4, 5, 3, 2, 1]])
+
+        graph_cut = graph.get_min_contraction()
+
+        self.assertEqual(2, graph_cut.get_nr_of_edges())
+
+        vertices_a = graph_cut.get_numbers_of_vertices_a()
+        vertices_b = graph_cut.get_numbers_of_vertices_b()
+        self.assertTrue([1] == vertices_a or [1] == vertices_b or [5] == vertices_a or [5] == vertices_b)

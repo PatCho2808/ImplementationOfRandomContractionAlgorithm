@@ -1,6 +1,8 @@
 from Vertice import *
 from random import choice
 from GraphCut import *
+from math import log1p
+from copy import deepcopy
 
 
 class Graph:
@@ -51,6 +53,17 @@ class Graph:
                              self.vertices[1].get_merged_vertices(),
                              self.edges)
         return graph_cut
+
+    def get_min_contraction(self):
+        min_contraction = None
+        nr_of_iterations = int(self.number_of_vertices * self.number_of_vertices * log1p(self.number_of_vertices))
+        for i in range(0, nr_of_iterations):
+            new_graph = deepcopy(self)
+            new_contraction = new_graph.get_random_contraction()
+            print(str(new_contraction.get_numbers_of_vertices_a()) + "  " + str(new_contraction.get_nr_of_edges()))
+            if not min_contraction or new_contraction.get_nr_of_edges() < min_contraction.get_nr_of_edges():
+                min_contraction = new_contraction
+        return min_contraction
 
     def get_vertice(self, nr_of_vertice):
         for vertice in self.vertices:
